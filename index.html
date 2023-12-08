@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My To Do List</title>
+  <style>
+    .strikethrough{
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h2>My To do list</h2>
+    <ul id="mylist">
+      <li>exercise</li>
+      <li>work</li>
+      <li>study</li>
+    </ul>
+    Enter new to-do-item: <input type="text" id="item-input" />
+    <button id="button">add</button>
+  </div>
+
+  <script>
+    function addItem (event) {
+      let itemInput = document.querySelector("#item-input")
+      let newInput = itemInput.value
+      itemInput.value = ""
+
+      let myList = document.querySelector("#mylist")
+      let listItem = document.createElement("li")
+      listItem.textContent = newInput
+
+      myList.appendChild(listItem)
+
+      listItem.addEventListener("click", removeItem)
+    }
+
+
+    function removeItem(event){
+      //Apply strikethrough style
+      event.target.classList.add("strikethrough");
+
+      //Remove the item after 1 second
+      setTimeout(() => {
+        event.target.remove();
+      }, 1000);
+    }
+
+
+    let button = document.querySelector("#button");
+    button.addEventListener("click", addItem);
+
+    let existingItems = document.querySelectorAll("#mylist li");
+    existingItems.forEach(item => {
+      item.addEventListener("click", removeItem);
+    })
+
+
+  </script>
+</body>
+
+</html>
